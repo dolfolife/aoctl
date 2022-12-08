@@ -13,7 +13,7 @@ func solvePart1(a1 int, a2 int, b1 int, b2 int) bool {
 }
 
 func solvePart2(a1 int, a2 int, b1 int, b2 int) bool {
-	return !(a2 < b1 || b2 < a1)
+	return a2 >= b1 && b2 >= a1
 }
 
 func atoi(s string) int {
