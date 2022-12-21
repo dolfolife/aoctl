@@ -9,12 +9,12 @@ func FindFirstMarker(distinct int, data []byte) int {
 	// Keep track of the characters that have been seen
 	var seen [26]bool
 
-	// Iterate through the data, starting at the fourth character
+	// Iterate through the data, starting at the distinct-th character
 	for i := distinct - 1; i < len(data); i++ {
 		// Reset the seen array
 		seen = [26]bool{}
 
-		// Check if the last four characters are all different
+		// Check if the distinct characters are all different
 		different := true
 		for j := i - distinct + 1; j <= i; j++ {
 			// Convert the character to an index in the range 0-25
@@ -26,7 +26,7 @@ func FindFirstMarker(distinct int, data []byte) int {
 			seen[index] = true
 		}
 
-		// If the last four characters are all different, return the index
+		// If the last distinct characters are all different, return the index
 		if different {
 			return i + 1
 		}
