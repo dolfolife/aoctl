@@ -1,0 +1,4 @@
+
+# Advent of Code use the .aoc file for storing session information which you should
+# not track in source control.
+.aoc
