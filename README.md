@@ -15,56 +15,64 @@ I found [Advent Of Code Go](https://github.com/alexchao26/advent-of-code-go/tree
 
 You need your session id from the advent of code website. I opened [Session ID is a manual process](https://github.com/dolfolife/adventofcode/issues/1) issue.
 
-## Init
+## Puzzles
+
+The Advent of Code puzzles have two parts. Each part have a single string input and a single output.
+
+By that, we have to create an interface that allows us to run each solution against the input and submit the solution to the server of advent of code.
+
+## Commands
+
+### Init
 Initialize the aoc project.
 
 ```bash
 aoc init <path> 
 ```
 
-## Puzzle
+### Puzzle
 Get The puzzle information with the option to save it locally in the repository.
 
 ```bash
 aoc puzzle [OPTIONS]
 ```
 
-### Options
+#### Options
 
-#### -s --session (required)
+##### -s --session (required)
 Advent of Code Session. You can get this in the Cookies of the website. 
 
-#### -d --day (required)
+##### -d --day (required)
 Day of the puzzle you want to get.
 
-#### -y --year (required)
+##### -y --year (required)
 Year of the puzzle you want to get.
 
-#### --sync (optional)
+##### --sync (optional)
 To save the puzzle locally at `<year>/<day>/puzzle.md
 
-## test
+### test
 Locally test your answers. This rely that each `<year>/<day>` solution has its own tests.
 
 ```bash
 aoc test [OPTIONS]
 ```
 
-## submit
+### submit
 Submit your answer to the Advent of Code.
 
 ```bash
 aoc submit [OPTIONS]
 ```
 
-### Options
+#### Options
 
-#### -s --session (required)
+##### -s --session (required)
 Advent of Code Session. You can get this in the Cookies of the website. 
 
-#### -d --day (required)
+##### -d --day (required)
 Day of the puzzle you want to get.
 
-#### -y --year (required)
+##### -y --year (required)
 Year of the puzzle you want to get.
 

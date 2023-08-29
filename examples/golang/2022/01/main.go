@@ -2,9 +2,12 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"strconv"
 	"strings"
+    "io/ioutil"
+    "os"
+    "path"
+    "path/filepath"
 )
 
 func gmap[T any, M any](data []T, f func(T) (M, error)) ([]M, error) {
@@ -70,7 +73,10 @@ func part2(bags []int) int {
 }
 
 func main() {
-	b, err := ioutil.ReadFile("input.txt")
+    folder, _ := os.Executable()
+    inputfile := filepath.Join(path.Dir(folder), "input.txt" )
+    fmt.Println(inputfile)
+	b, err := ioutil.ReadFile(inputfile)
 	if err != nil {
 		fmt.Println("error processing the file")
 	}

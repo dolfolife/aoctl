@@ -17,7 +17,6 @@ var puzzleCmd = &cobra.Command{
         cookie := args[2]
         puzzles := aoc.GetPuzzles(day, year, cookie)
         fmt.Println(puzzles[0])
-        fmt.Println("------------------------------------------------------------------------_")
         fmt.Println(puzzles[1])
     },
 }
