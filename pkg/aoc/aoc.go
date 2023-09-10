@@ -8,6 +8,11 @@ import (
 
 )
 
+type Puzzle struct {
+    Puzzle1 func(string) string
+    Puzzle2 func(string) string
+}
+
 func InitializeProject(path string) error {
     fullPath := filepath.Join(os.Getenv("PWD"), path)
     
