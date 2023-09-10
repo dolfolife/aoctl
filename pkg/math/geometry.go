@@ -39,3 +39,7 @@ func CalIntersectionPoint(a, b, c, d Point) (bool, Point) {
 
     return false, Point{} // The intersection point is outside the line segments
 }
+
+func IsValidTriangle(a, b, c int) bool {
+    return a+b > c && a+c > b && b+c > a
+}
