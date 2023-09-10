@@ -87,10 +87,10 @@ func normalize(input string) []string {
     return strings.Split(input, ", ")
 }
 
-func Solve(file_input_content string) puzzle.PuzzleSolution[[]string] {
+func Solve(fileInputContent string) puzzle.PuzzleSolution[[]string] {
     puzzleSolver := puzzle.NewPuzzleSolver("day_1", normalize, part1, part2)
     return puzzle.PuzzleSolution[[]string] {
-        Part1: puzzleSolver.SolvePart(1, file_input_content),
-        Part2: puzzleSolver.SolvePart(2, file_input_content),
+        Part1: puzzleSolver.SolvePart(1, fileInputContent),
+        Part2: puzzleSolver.SolvePart(2, fileInputContent),
     }
 }
