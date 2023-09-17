@@ -8,10 +8,10 @@ Before I say anything, thank you for considering putting effort into making this
 
 There are two main parts `pkg` and `cmd` that together work to satisfy the interface of the `aoc` CLI.
 
-- `pkg`: in the `pkg` part is where the bussiness logic for the CLI live.
+- `pkg`: in the `pkg` part is where the business logic for the CLI lives.
 - `cmd`: in the `cmd` part of the project is where the implementation details of the CLI User Experience.
 
-the `examples` folder have a list of languages and advent of code years I use to manually test and in the future it will do the integration tests.
+the `examples` folder has a list of languages and the advent of code years I use to test manually. In the future, it will do the integration tests.
 
 ## Development Flow
 
@@ -21,7 +21,7 @@ the `examples` folder have a list of languages and advent of code years I use to
 
 ### Branch Flow
 
-There are some branches that need bot approvals from GitHub Actions before the changes comes it. For that, we need a custom branch to make our changes before we are ready to merge that to these protected branches.
+There are some branches that need bot approvals from GitHub Actions before the changes comes in. For that, we need a custom branch to make our changes before we are ready to merge that into these protected branches.
 
 For example, let's say you want to make a change to the v0.2.3. You checkout the `release/v0.2.x` branch and create a custom branch `release/v0.2.x-fix-issue`. 
 
@@ -33,9 +33,9 @@ No matter what type of change we want to propose we need to follow a simple work
 
 #### Steps
 
-- A good pre-work you can do before start contributing is to find any issues or open PRs that might be related to your situation.
+- A good pre-work you can do before starting contributing is to find any issues or open PRs that might be related to your situation.
 - If you have not done it, fork this project in a space you have pushing privileges.
-- Check the release branch that you want to contribute and create your custom branch.
+- Check the release branch you want to contribute to and create your custom branch.
 - Make the changes you find valuable to solve the issue you are fixing.
 - Run `go test ./...` and make sure you are not breaking other parts of the codebase.
 - Create a PR to the release branch associated with the changes and write all the information the maintainer would need to get context to understand the change.
