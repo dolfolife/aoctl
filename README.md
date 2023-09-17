@@ -1,4 +1,12 @@
-# Advent Of Code Series
+# Advent of Code CLI
+
+This is a personal project I have to learn more about writing CLI tools in GoLang. The idea behind this project is to help me solving the [Advent of Code](adventofcode.com/) since I have notice some patterns while solving them.
+
+> Disclaimer: this is yet another CLI that solve a common problem and there are probably N solutions out there. My motivation is not only to provide a CLI but learn how to write, develop, release, and test them.
+
+I hope you enjoy it and feel free to help me understand best practices of writing CLI tools or GoLang packages by writing an issue or using the [CONTRIBUTING.md](./CONTRIBUTING.md) to write a PR.
+
+## Advent Of Code Series
 
 Advent of Code is a website made by Eric Wastl. I recommend watching [Advent of Code: Behind the Scenes](https://www.youtube.com/watch?v=CFWuwNDOnIo&ab_channel=CodingTech).
 

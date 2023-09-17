@@ -4,6 +4,7 @@
 - [ ] The session can be fetched from the website? Similar CLI use a webhook to fetch the session.
 - [ ] Support more than GoLang (e.g. TS)
 - [ ] Using OpenFaaS or any other Function as a Service to make the CLI work with
+- [ ] Write a Public website that can be deploy on GitHub Pages.
 
 ## Init
 - [ ] *open question*: Should we initilize all the files from the years 2015 to present? 
