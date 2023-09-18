@@ -5,8 +5,8 @@ on:
     branches:
       - main
 
-permissions:
-  contents: write
+permissions: write-all
+
 env:
   REGISTRY: ghcr.io
 jobs:
