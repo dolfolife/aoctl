@@ -42,3 +42,28 @@ changelog:
 # Feel free to remove those if you don't want/use them.
 # yaml-language-server: $schema=https://goreleaser.com/static/schema.json
 # vim: set ts=2 sw=2 tw=0 fo=cnqoj
+brews:
+  - name: aoctl
+    ids:
+      - adventofcode
+      - dolfolife
+    url_template: "https://github.com/dolfolife/adventofcode/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
+    commit_author:
+      name: dolfolife
+      email: rodolfo2488@gmail.com
+    commit_msg_template: "Brew formula update for {{ .ProjectName }} version {{ .Tag }}"
+    folder: Formula
+    homepage: https://github.com/dolfolife/adventofcode
+    description: "Advent of Code CLI to help you organize and test your solutions"
+    license: MIT
+    dependencies:
+      - git
+    test: |
+      system "#{bin}/aoctl --version"
+    repository:
+      owner: dolfolife
+      name: adventofcode
+      branch: main
+      pull_request:
+        enabled: true
+        draft: true
