@@ -53,10 +53,10 @@ dockers:
     ids: ['aoctl']
     dockerfile: Dockerfile
     image_templates:
-      - "ghcr.io/dolfolife/aoctl:{{ .Tag }}"
-      - "ghcr.io/dolfolife/aoctl:v{{ .Major }}"
-      - "ghcr.io/dolfolife/aoctl:v{{ .Major }}.{{ .Minor }}"
-      - "ghcr.io/dolfolife/aoctl:latest"
+      - ghcr.io/dolfolife/aoctl:{{ .Tag }}
+      - ghcr.io/dolfolife/aoctl:v{{ .Major }}
+      - ghcr.io/dolfolife/aoctl:v{{ .Major }}.{{ .Minor }}
+      - ghcr.io/dolfolife/aoctl:latest
 brews:
   - name: aoctl
     repository:
