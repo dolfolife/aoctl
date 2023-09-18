@@ -44,9 +44,6 @@ changelog:
 # vim: set ts=2 sw=2 tw=0 fo=cnqoj
 brews:
   - name: aoctl
-    ids:
-      - adventofcode
-      - dolfolife
     url_template: "https://github.com/dolfolife/adventofcode/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
     commit_author:
       name: dolfolife
