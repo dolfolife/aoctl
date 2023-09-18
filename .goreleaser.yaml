@@ -5,13 +5,23 @@ before:
     # You may remove this if you don't use go modules.
     - go mod tidy
 builds:
-  - env:
+  - binary: aoctl
+    env:
       - CGO_ENABLED=0
     goos:
       - linux
       - windows
       - darwin
-
+    goarch:
+      - "386"
+      - "amd64"
+      - "arm"
+      - "arm64"
+project_name: aoctl
+release:
+  github:
+    owner: dolfolife
+    name: aoctl
 archives:
   - format: tar.gz
     # this name template makes the OS and Arch compatible with the results of uname.
@@ -37,20 +47,28 @@ changelog:
       - '^docs:'
       - '^test:'
       - '^examples:'
-
-# The lines beneath this are called `modelines`. See `:help modeline`
-# Feel free to remove those if you don't want/use them.
-# yaml-language-server: $schema=https://goreleaser.com/static/schema.json
-# vim: set ts=2 sw=2 tw=0 fo=cnqoj
+dockers:
+  - goos: linux
+    goarch: "386"
+    ids: ['aoctl']
+    dockerfile: Dockerfile
+    image_templates:
+      - "ghcr.io/dolfolife/aoctl:{{ .tag }}"
+      - "ghcr.io/dolfolife/aoctl:v{{ .major }}"
+      - "ghcr.io/dolfolife/aoctl:v{{ .major }}.{{ .minor }}"
+      - "ghcr.io/dolfolife/aoctl:latest"
 brews:
   - name: aoctl
-    url_template: "https://github.com/dolfolife/adventofcode/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
+    tap:
+      owner: dolfolife
+      name: oactl
+    url_template: "https://github.com/dolfolife/aoctl/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
     commit_author:
       name: dolfolife
       email: rodolfo2488@gmail.com
     commit_msg_template: "Brew formula update for {{ .ProjectName }} version {{ .Tag }}"
     folder: Formula
-    homepage: https://github.com/dolfolife/adventofcode
+    homepage: https://github.com/dolfolife/aoctl
     description: "Advent of Code CLI to help you organize and test your solutions"
     license: MIT
     dependencies:
@@ -60,7 +78,5 @@ brews:
     repository:
       owner: dolfolife
       name: adventofcode
-      branch: main
-      pull_request:
-        enabled: true
-        draft: true
+      branch:  "{{ .Env.VERSION }}"
+

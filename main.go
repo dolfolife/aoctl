@@ -1,6 +1,6 @@
 package main
 
-import "github.com/dolfolife/adventofcode/cmd/aoc"
+import "github.com/dolfolife/aoctl/cmd/aoc"
 
 func main() {
     aoc.Execute()

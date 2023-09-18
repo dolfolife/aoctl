@@ -4,9 +4,9 @@ import (
     "os"
     "fmt"
 
-    day_1 "github.com/dolfolife/adventofcode/examples/golang/2016/01"
-    day_2 "github.com/dolfolife/adventofcode/examples/golang/2016/02"
-    day_3 "github.com/dolfolife/adventofcode/examples/golang/2016/03"
+    day_1 "github.com/dolfolife/aoctl/examples/golang/2016/01"
+    day_2 "github.com/dolfolife/aoctl/examples/golang/2016/02"
+    day_3 "github.com/dolfolife/aoctl/examples/golang/2016/03"
 )
 
 func RunDay1() {

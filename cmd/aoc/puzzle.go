@@ -4,7 +4,7 @@ import (
     "fmt"
 
     "github.com/spf13/cobra"
-    "github.com/dolfolife/adventofcode/pkg/aoc"
+    "github.com/dolfolife/aoctl/pkg/aoc"
 )
 var puzzleCmd = &cobra.Command{
     Use: "puzzle",

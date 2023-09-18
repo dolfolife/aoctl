@@ -3,7 +3,7 @@ package aoc
 import (
 
     "github.com/spf13/cobra"
-    "github.com/dolfolife/adventofcode/pkg/aoc"
+    "github.com/dolfolife/aoctl/pkg/aoc"
 )
 
 var initCmd = &cobra.Command{

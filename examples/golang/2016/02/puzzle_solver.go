@@ -4,7 +4,7 @@ import (
     "strings"
     "fmt"
 
-    "github.com/dolfolife/adventofcode/pkg/puzzle"
+    "github.com/dolfolife/aoctl/pkg/puzzle"
 )
 
 func solvePart1(commands []string) (string, error) {

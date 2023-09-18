@@ -25,6 +25,7 @@ jobs:
           tag=$(echo $(git describe --abbrev=0 --tags) | awk -F. '/[0-9]+\./{$NF++;print}' OFS=.)
           git tag $tag
           git push --tags
+          
 
       - name: Release with GoReleaser
         uses: goreleaser/goreleaser-action@v5

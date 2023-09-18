@@ -5,8 +5,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/dolfolife/adventofcode/pkg/math"
-	"github.com/dolfolife/adventofcode/pkg/puzzle"
+	"github.com/dolfolife/aoctl/pkg/math"
+	"github.com/dolfolife/aoctl/pkg/puzzle"
 )
 
 func solvePart1(input [][]int) (string, error) {

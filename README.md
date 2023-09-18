@@ -21,7 +21,7 @@ I found [Advent Of Code Go](https://github.com/alexchao26/advent-of-code-go/tree
 
 ## Pre-requisite
 
-You need your session ID from the Advent of Code website. I opened [Session ID is a manual process](https://github.com/dolfolife/adventofcode/issues/1) issue.
+You need your session ID from the Advent of Code website. I opened [Session ID is a manual process](https://github.com/dolfolife/aoctl/issues/1) issue.
 
 ## Puzzles
 

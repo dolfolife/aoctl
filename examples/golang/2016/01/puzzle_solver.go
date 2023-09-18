@@ -5,8 +5,8 @@ import (
     "strconv"
     "errors"
 
-    "github.com/dolfolife/adventofcode/pkg/puzzle"
-    . "github.com/dolfolife/adventofcode/pkg/math"
+    "github.com/dolfolife/aoctl/pkg/puzzle"
+    . "github.com/dolfolife/aoctl/pkg/math"
 )
 
 

@@ -1,4 +1,4 @@
-module github.com/dolfolife/adventofcode
+module github.com/dolfolife/aoctl
 
 go 1.20
 
