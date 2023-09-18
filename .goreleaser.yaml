@@ -59,7 +59,7 @@ dockers:
       - "ghcr.io/dolfolife/aoctl:latest"
 brews:
   - name: aoctl
-    tap:
+    repository:
       owner: dolfolife
       name: oactl
     url_template: "https://github.com/dolfolife/aoctl/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
@@ -71,12 +71,6 @@ brews:
     homepage: https://github.com/dolfolife/aoctl
     description: "Advent of Code CLI to help you organize and test your solutions"
     license: MIT
-    dependencies:
-      - git
     test: |
       system "#{bin}/aoctl --version"
-    repository:
-      owner: dolfolife
-      name: adventofcode
-      branch:  "{{ .Env.VERSION }}"
 
