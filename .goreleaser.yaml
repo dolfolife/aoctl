@@ -61,7 +61,7 @@ brews:
   - name: aoctl
     repository:
       owner: dolfolife
-      name: oactl
+      name: aoctl
     url_template: "https://github.com/dolfolife/aoctl/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
     commit_author:
       name: dolfolife
