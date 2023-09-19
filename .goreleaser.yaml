@@ -61,13 +61,12 @@ brews:
   - name: aoctl
     repository:
       owner: dolfolife
-      name: aoctl
+      name: homebrew-aoctl
     url_template: "https://github.com/dolfolife/aoctl/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
     commit_author:
       name: dolfolife
       email: rodolfo2488@gmail.com
     commit_msg_template: "Brew formula update for {{ .ProjectName }} version {{ .Tag }}"
-    folder: Formula
     homepage: https://github.com/dolfolife/aoctl
     description: "Advent of Code CLI to help you organize and test your solutions"
     license: MIT
