@@ -62,6 +62,7 @@ brews:
     repository:
       owner: dolfolife
       name: homebrew-aoctl
+      branch: main
     url_template: "https://github.com/dolfolife/aoctl/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
     commit_author:
       name: dolfolife
