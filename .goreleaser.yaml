@@ -72,5 +72,5 @@ brews:
     description: "Advent of Code CLI to help you organize and test your solutions"
     license: MIT
     test: |
-      system "#{bin}/aoctl --version"
+      system "#{bin}/aoctl --help"
 
