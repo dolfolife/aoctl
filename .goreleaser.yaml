@@ -68,7 +68,7 @@ brews:
       name: dolfolife
       email: rodolfo2488@gmail.com
     commit_msg_template: "Brew formula update for {{ .ProjectName }} version {{ .Tag }}"
-    homepage: https://github.com/dolfolife/aoctl
+    homepage: https://pkg.go.dev/github.com/dolfolife/aoctl
     description: "Advent of Code CLI to help you organize and test your solutions"
     license: MIT
     test: |
