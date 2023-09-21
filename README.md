@@ -1,5 +1,7 @@
 # Advent of Code CLI
 
+[![Go Reference](https://pkg.go.dev/badge/github.com/dolfolife/aoctl#section-readme.svg)](https://pkg.go.dev/github.com/dolfolife/aoctl#section-readme)
+
 This is a personal project I have to learn more about writing CLI tools in GoLang. The idea behind this project is to help me solve the [Advent of Code](adventofcode.com/) since I have noticed some patterns while solving them.
 
 > Disclaimer: This is yet another CLI that solves a common problem and there are probably N solutions out there. My motivation is not only to provide a CLI but to learn how to write, develop, release, and test them.
