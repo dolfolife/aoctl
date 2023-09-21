@@ -21,12 +21,6 @@ the `examples` folder has a list of languages and the advent of code years I use
 
 ### Branch Flow
 
-There are some branches that need bot approvals from GitHub Actions before the changes comes in. For that, we need a custom branch to make our changes before we are ready to merge that into these protected branches.
-
-For example, let's say you want to make a change to the v0.2.3. You checkout the `release/v0.2.x` branch and create a custom branch `release/v0.2.x-fix-issue`. 
-
-> Note: all the patch versions shared the same release branch.
-
 ### Proposing a new change
 
 No matter what type of change we want to propose we need to follow a simple workflow to make sure we are using all the automated processes that are there to help us.
@@ -39,7 +33,6 @@ No matter what type of change we want to propose we need to follow a simple work
 - Make the changes you find valuable to solve the issue you are fixing.
 - Run `go test ./...` and make sure you are not breaking other parts of the codebase.
 - Create a PR to the release branch associated with the changes and write all the information the maintainer would need to get context to understand the change.
-
 
 Thank you!
 

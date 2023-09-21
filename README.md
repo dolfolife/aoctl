@@ -16,7 +16,7 @@ Advent of Code is a website made by Eric Wastl. I recommend watching [Advent of 
 
 The inspiration to build a tool around solving comes from laziness of not going to a browser to find puzzles and submit my answers.
 
-I found [Advent Of Code Go](https://github.com/alexchao26/advent-of-code-go/tree/main) and it inspired me to build my own tool and learn more GoLang. 
+I found [Advent Of Code Go](https://github.com/alexchao26/advent-of-code-go) and it inspired me to build my own tool and learn more GoLang. 
 
 
 # AoC CLI Documentation
@@ -34,10 +34,16 @@ By that, we have to create an interface that allows us to run each solution agai
 ## Commands
 
 ### Init
-Initialize the aoc project.
+Initialize the aoc project in your local machine.
 
 ```bash
 aoc init <path> 
+```
+
+#### Options
+
+```
+--path -p  Path to initialize the project
 ```
 
 ### Puzzle
@@ -49,20 +55,26 @@ aoc puzzle [OPTIONS]
 
 #### Options
 
-##### -s --session (required)
-Advent of Code Session. You can get this in the Cookies of the website. 
+```
+-s --session (required) Advent of Code Session. You can get this in the Cookies of the website. 
+```
 
-##### -d --day (required)
-Day of the puzzle you want to get.
+```
+-d --day (required) Day of the puzzle you want to get.
+```
 
-##### -y --year (required)
-Year of the puzzle you want to get.
+```
+-y --year (required) Year of the puzzle you want to get.
+```
 
-##### --sync (optional)
-To save the puzzle locally at `<year>/<day>/puzzle.md
+```
+--sync (optional) To save the puzzle locally at `<year>/<day>/puzzle.md
+```
 
 ### test
 Locally test your answers. This relies that each `<year>/<day>` solution has its own tests.
+
+> not yet implemented
 
 ```bash
 aoc test [OPTIONS]
@@ -71,18 +83,22 @@ aoc test [OPTIONS]
 ### submit
 Submit your answer to the Advent of Code.
 
+> not yet implemented
+
 ```bash
 aoc submit [OPTIONS]
 ```
 
 #### Options
 
-##### -s --session (required)
-Advent of Code Session. You can get this in the Cookies of the website. 
+```
+-s --session (required) Advent of Code Session. You can get this in the Cookies of the website. 
+```
 
-##### -d --day (required)
-Day of the puzzle you want to get.
+```
+-d --day (required) Day of the puzzle you want to get.
+```
 
-##### -y --year (required)
-Year of the puzzle you want to get.
-
+```
+-y --year (required) Year of the puzzle you want to get.
+```
