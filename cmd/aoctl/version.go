@@ -39,6 +39,7 @@ var (
 	Use:   "version",
 	Short: "version of the Advent of Code CLI",
 	Run: func(cmd *cobra.Command, args []string) {
+            fmt.Printf("version: %s\n", version)
             var response string
 	        versionOutput := goVersion.New(version, commit, date)
 
