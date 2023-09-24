@@ -1,0 +1,36 @@
+name: Test AoCTL
+
+on:
+  pull_request:
+    branches:    
+      - main
+  push:
+    branches:
+      - main
+    paths:
+      - 'pkg/**'
+      - 'cmd/**'
+      - 'go.*'
+      - 'main.go'
+
+jobs:
+  test-cli:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+
+      - name: Test
+        env:
+          GOEXPERIMENT: nocoverageredesign
+        run: go test ./pkg/... ./cmd/... -coverpkg=./pkg/...,./cmd/... -coverprofile=coverage.out
+      
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
