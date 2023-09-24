@@ -26,6 +26,8 @@ jobs:
         uses: actions/setup-go@v4
 
       - name: Test
+        env:
+          GOEXPERIMENT: nocoverageredesign
         run: go test ./pkg/... ./cmd/... -coverpkg=./pkg/...,./cmd/... -coverprofile=coverage.out
       
       - name: Upload coverage reports to Codecov
