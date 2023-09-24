@@ -1,7 +1,9 @@
 package main
 
-import "github.com/dolfolife/aoctl/cmd/aoc"
+import (
+    "github.com/dolfolife/aoctl/cmd/aoctl"
+)
 
 func main() {
-    aoc.Execute()
+    aoctl.Execute()
 }

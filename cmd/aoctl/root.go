@@ -1,4 +1,4 @@
-package aoc
+package aoctl
 
 import (
     "fmt"

@@ -19,32 +19,43 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-package aoc
+package aoctl
 
 import (
+	"fmt"
 
-    "github.com/spf13/cobra"
-    "github.com/dolfolife/aoctl/pkg/aoc"
+    goVersion "go.hein.dev/go-version"
+	"github.com/spf13/cobra"
 )
 
-var initCmd = &cobra.Command{
-    Use: "init",
-    Aliases: []string{"initialize"},
-    Short: "Initialize the Advent of Code project in the path specifed",
-    Args: cobra.ExactArgs(0),
-    Run: func(cmd *cobra.Command, args []string) {
-        path := cmd.Flags().Lookup("path").Value.String()
+// versionCmd represents the aoc/version command
+var (
+    shortened  = false
+	version    = "dev"
+	commit     = "none"
+	date       = "unknown"
+	output     = "json"
+    versionCmd = &cobra.Command{
+	Use:   "version",
+	Short: "version of the Advent of Code CLI",
+	Run: func(cmd *cobra.Command, args []string) {
+            var response string
+	        versionOutput := goVersion.New(version, commit, date)
 
-        if path == "" {
-            path= "adventofcode"
-        }
-
-        aoc.InitializeProject(path)
-    },
-}
+	        if shortened {
+                response = versionOutput.ToShortened()
+            } else {
+                response = versionOutput.ToJSON()
+            }
+            fmt.Printf("%+v", response)
+            return
+	    },
+    }
+)
 
 func init() {
-    rootCmd.AddCommand(initCmd)
+    versionCmd.Flags().BoolVarP(&shortened, "short", "s", false, "Print just the version number.")
+	versionCmd.Flags().StringVarP(&output, "output", "o", "json", "Output format. One of 'yaml' or 'json'.")
 
-    initCmd.Flags().StringP("path", "p", "", "Path to initialize the project")
+	rootCmd.AddCommand(versionCmd)
 }
