@@ -41,6 +41,13 @@ Initialize the aoc project in your local machine.
 aoc init <path> 
 ```
 
+### Version
+Print current version of the cli
+
+```bash
+aoc version
+```
+
 #### Options
 
 ```
