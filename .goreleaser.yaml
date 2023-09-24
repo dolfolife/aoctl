@@ -17,6 +17,8 @@ builds:
       - "amd64"
       - "arm"
       - "arm64"
+    ldflags:
+      - '-s -w -X "github.com/dolfolife/aoctl/cmd/aoctl.version={{.Version}}" -X github.com/dolfolife/aoctl/cmd/aoctl.commit={{.Commit}} -X github.com/dolfolife/aoctl/cmd/aoctl.date={{.Date}} -X github.com/dolfolife/aoctl/cmd/aoctl.build={{.Tag}}'
 project_name: aoctl
 release:
   github:
