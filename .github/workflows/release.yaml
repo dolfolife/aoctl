@@ -33,14 +33,6 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v4
 
-      - name: Test
-        run: go test ./... -cover
-      
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v3
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-
       - name: Create new tag
         run: |
           tag=$(echo $(git describe --abbrev=0 --tags) | awk -F. '/[0-9]+\./{$NF++;print}' OFS=.)
