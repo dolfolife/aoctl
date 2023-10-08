@@ -1,16 +1,22 @@
 package aoc
 
 import (
-    "log"
-    "os"
-    "path/filepath"
-    "net/url"
+	"log"
+	"net/url"
+	"os"
+	"path/filepath"
 
+	"github.com/dolfolife/aoctl/pkg/puzzle"
 )
 
-type Puzzle struct {
-    Puzzle1 func(string) string
-    Puzzle2 func(string) string
+type AoCConfig struct {
+    ProjectPath string
+}
+
+func GetAoCConfig() AoCConfig {
+    return AoCConfig{
+        ProjectPath: os.Getenv("PWD"),
+    }
 }
 
 func InitializeProject(path string) error {
@@ -73,14 +79,26 @@ session=<insert-advent-of-code-session>
 }
 
 
-func GetPuzzles(day string, year string, cookie string) []string {
-    url, err := url.JoinPath("https://adventofcode.com/", year, "/day/", day)
+func GetPuzzles(day string, year string, cookie string) []puzzle.Puzzle {
+    puzzleURL, err := url.JoinPath("https://adventofcode.com/", year, "/day/", day)
     
     if err != nil {
         log.Fatalf("Error creating url: %s", err)
     }
     
-    body := getBodyFromUrl(url, cookie)
+    body := getBodyFromUrl(puzzleURL, cookie)
+    
+    inputURL, err := url.JoinPath(puzzleURL, "/input")
+    
+    if err != nil {
+        log.Fatalf("Error creating url: %s", err)
+    }
+    
+    rawInput := getBodyFromUrl(inputURL, cookie)
 
-    return getPuzzleParts(body)
+    response, err := ParsePuzzles(day, year, body, rawInput)
+    if err != nil {
+        log.Fatalf("Error parsing puzzles: %s", err)
+    }
+    return response
 }

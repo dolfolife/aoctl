@@ -1,4 +1,4 @@
-package _day02
+package day2
 
 import (
     "strings"
@@ -75,19 +75,26 @@ func solvePart2(commands []string) (string, error) {
     return strings.Join(code, ""), nil
 }
 
-func normalizeInput(input string) []string {
+type Day2Part1Solver struct {
+    Puzzle puzzle.PuzzlePart
+}
+
+func (s *Day2Part1Solver) NormalizeInput(input string) []string {
     return strings.Split(input, "\n")
 }
 
-func GetPuzzleSolver() puzzle.Puzzle[[]string] {
-    return puzzle.NewPuzzleSolver("day02", normalizeInput, solvePart1, solvePart2)
+func (s *Day2Part1Solver) Solve() (string, error) {
+    return solvePart1(s.NormalizeInput(string(s.Puzzle.RawInput)))
 }
 
-func Solve(fileInputContent string) puzzle.PuzzleSolution[[]string] {
+type Day2Part2Solver struct {
+    Puzzle puzzle.PuzzlePart
+}
 
-    puzzleSolver := GetPuzzleSolver()
-    return puzzle.PuzzleSolution[[]string]{
-        Part1: puzzleSolver.SolvePart(1, fileInputContent),
-        Part2: puzzleSolver.SolvePart(2, fileInputContent),
-    }
+func (s *Day2Part2Solver) NormalizeInput(input string) []string {
+    return strings.Split(input, "\n")
+}
+
+func (s *Day2Part2Solver) Solve() (string, error) {
+    return solvePart2(s.NormalizeInput(string(s.Puzzle.RawInput)))
 }

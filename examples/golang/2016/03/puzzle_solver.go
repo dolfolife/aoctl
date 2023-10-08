@@ -1,4 +1,4 @@
-package _day03
+package day3
 
 import (
 	"fmt"
@@ -33,7 +33,11 @@ func solvePart2(input [][]int) (string, error) {
     return fmt.Sprint(validTriangles), nil
 }
 
-func normalizeInput(input string) [][]int {
+type Day3Part1Solver struct {
+    Puzzle puzzle.PuzzlePart
+}
+
+func (s *Day3Part1Solver) NormalizeInput(input string) [][]int {
     result := make([][]int, 0)
     lines := strings.Split(input, "\n") 
     for _, triangleSizes := range lines {
@@ -50,15 +54,31 @@ func normalizeInput(input string) [][]int {
     return result
 }
 
-func GetPuzzleSolver() puzzle.Puzzle[[][]int] {
-    return puzzle.NewPuzzleSolver("day03", normalizeInput, solvePart1, solvePart2)
+func (s *Day3Part1Solver) Solve() (string, error) {
+    return solvePart1(s.NormalizeInput(string(s.Puzzle.RawInput)))
 }
 
-func Solve(input string) puzzle.PuzzleSolution[[][]int] {
-    puzzleSolver := GetPuzzleSolver()
+type Day3Part2Solver struct {
+    Puzzle puzzle.PuzzlePart
+}
 
-    return puzzle.PuzzleSolution[[][]int]{
-        Part1: puzzleSolver.SolvePart(1, input),
-        Part2: puzzleSolver.SolvePart(2, input),
+func (s *Day3Part2Solver) NormalizeInput(input string) [][]int {
+    result := make([][]int, 0)
+    lines := strings.Split(input, "\n") 
+    for _, triangleSizes := range lines {
+        rawValues := strings.Split(triangleSizes, " ")
+        line := make([]int, 0)
+        for _, value := range rawValues {
+            v, _ := strconv.Atoi(value)
+            if v > 0 {
+                line = append(line, v)
+            }
+        }
+        result = append(result, line)
     }
+    return result
+}
+
+func (s *Day3Part2Solver) Solve() (string, error) {
+    return solvePart2(s.NormalizeInput(string(s.Puzzle.RawInput)))
 }

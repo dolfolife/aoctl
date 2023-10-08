@@ -1,34 +1,49 @@
-package _day03
+package day3
 
 import (
     "testing"
 
     "github.com/stretchr/testify/assert"
+    "github.com/stretchr/testify/suite"
 )
 
-func TestSquaresWithThreeSidesPart1(t *testing.T) {
-
-    subject := GetPuzzleSolver()
+func (suite *Day3Suite) TestSquaresWithThreeSidesPart1_1() {
 
     input := `5 10 25`
-    assert.Equal(t, "0", subject.SolvePart(1, input))
-
-    input = `5 10 25
-1 1 1
-5 10 25`
-    assert.Equal(t, "1", subject.SolvePart(1, input))
+    suite.SubjectPart1.Puzzle.RawInput = []byte(input)
+    actualValues, errs := suite.SubjectPart1.Solve()
+    if errs != nil {
+        suite.T().Errorf("Unexpected error: %s\n", errs)
+    }
+    assert.Equal(suite.T(), "0", actualValues)
 }
 
-func TestSquaresWithThreeSidesPart2(t *testing.T) {
+func (suite *Day3Suite) TestSquaresWithThreeSidesPart1_2() {
+    input := `5 10 25
+1 1 1
+5 10 25`
+    suite.SubjectPart1.Puzzle.RawInput = []byte(input)
+    actualValues, errs := suite.SubjectPart1.Solve()
+    if errs != nil {
+        suite.T().Errorf("Unexpected error: %s\n", errs)
+    }
+    assert.Equal(suite.T(), "1", actualValues)
+}
 
-    subject := GetPuzzleSolver()
-
+func (suite *Day3Suite) TestSquaresWithThreeSidesPart2_1() {
     input := `1 10 25
 1 1 1
 1 10 25`
-    assert.Equal(t, "3", subject.SolvePart(2, input))
-    
-    input = `1 10 25
+    suite.SubjectPart2.Puzzle.RawInput = []byte(input)
+    actualValues, errs := suite.SubjectPart2.Solve()
+    if errs != nil {
+        suite.T().Errorf("Unexpected error: %s\n", errs)
+    }
+    assert.Equal(suite.T(), "3", actualValues)
+}
+
+func (suite *Day3Suite) TestSquaresWithThreeSidesPart2_2() {
+    input := `1 10 25
 1 1 1
 1 10 25
 1 1 1
@@ -37,5 +52,26 @@ func TestSquaresWithThreeSidesPart2(t *testing.T) {
 1 1 1
 10 100 10
 1 1 1`
-    assert.Equal(t, "6", subject.SolvePart(2, input))
+    suite.SubjectPart2.Puzzle.RawInput = []byte(input)
+    actualValues, errs := suite.SubjectPart2.Solve()
+    if errs != nil {
+        suite.T().Errorf("Unexpected error: %s\n", errs)
+    }
+    assert.Equal(suite.T(), "6", actualValues)
 }
+
+type Day3Suite struct {
+    suite.Suite
+    SubjectPart1 Day3Part1Solver
+    SubjectPart2 Day3Part2Solver
+}
+
+func (suite *Day3Suite) SetupTest() {
+    suite.SubjectPart1 = Day3Part1Solver{}
+    suite.SubjectPart2 = Day3Part2Solver{}
+}
+
+func TestSuite(t *testing.T) {
+    suite.Run(t, new(Day3Suite))
+}
+

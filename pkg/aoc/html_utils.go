@@ -1,37 +1,38 @@
 package aoc
 
 import (
-    "bytes"
-    "log"
-    "strings"
+	"bytes"
+	"log"
+	"strings"
 
-    "golang.org/x/net/html"
+	"github.com/dolfolife/aoctl/pkg/puzzle"
+	"golang.org/x/net/html"
 )
 
-func getPuzzleParts(body []byte) []string {
-    node, err := html.Parse(bytes.NewReader(body))
+func ParsePuzzles(day string, year string, responseBody []byte, input []byte) ([]puzzle.Puzzle, error) {
+    node, err := html.Parse(bytes.NewReader(responseBody))
    
     if err != nil {
         log.Fatalf("Error parsing the body: %s", err)
     }
 
-    puzzlePartsHTMLNodes := findRootNodesPuzzlePart(node)
+    puzzlePartsHTMLNodes := findRootNodesPuzzle(node)
     
-    var parts []string
+    var parts []puzzle.Puzzle
     for _, node := range puzzlePartsHTMLNodes {
-       parts = append(parts, parsePuzzleHTML(node))
+       parts = append(parts, puzzle.NewPuzzleFromHTML(day, year, parsePuzzleHTML(node), input))
     }
-    return parts
+    return  parts, nil
 }
 
-func findRootNodesPuzzlePart(node *html.Node) []*html.Node {
+func findRootNodesPuzzle(node *html.Node) []*html.Node {
     var nodes []*html.Node
     
     for child := node.FirstChild; child != nil; child = child.NextSibling {
         if child.Type == html.ElementNode && child.Data == "article" && hasAttr(child.Attr, "day-desc") {
             nodes = append(nodes, child)
         }
-        nodes = append(nodes, findRootNodesPuzzlePart(child)...)
+        nodes = append(nodes, findRootNodesPuzzle(child)...)
     }
 
     return nodes

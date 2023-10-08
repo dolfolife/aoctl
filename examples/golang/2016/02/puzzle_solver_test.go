@@ -1,24 +1,52 @@
-package _day02
+package day2
 
 import (
     "testing"
     "github.com/stretchr/testify/assert"
+    "github.com/stretchr/testify/suite"
 )
 
-func TestBathroomSecurityPart1(t *testing.T) {
-    subject := GetPuzzleSolver()
-    input := `ULL
-RRDDD
-LURDL
-UUUUD`
-    assert.Equal(t, "1985", subject.SolvePart(1, input))
+type Day2Suite struct {
+    suite.Suite
+    SubjectPart1 Day2Part1Solver
+    SubjectPart2 Day2Part2Solver
 }
 
-func TestBathroomSecurityPart2(t *testing.T) {
-    subject := GetPuzzleSolver()
+func (suite *Day2Suite) SetupTest() {
+    suite.SubjectPart1 = Day2Part1Solver{}
+    suite.SubjectPart2 = Day2Part2Solver{}
+}
+
+func (suite *Day2Suite) TestBathroomSecurityPart1() {
     input := `ULL
 RRDDD
 LURDL
 UUUUD`
-    assert.Equal(t, "5DB3", subject.SolvePart(2, input))
+
+    suite.SubjectPart1.Puzzle.RawInput = []byte(input)
+    actualValues, errs := suite.SubjectPart1.Solve()
+    if errs != nil {
+        suite.T().Errorf("Unexpected error: %s\n", errs)
+    }
+
+    assert.Equal(suite.T(), "1985", actualValues)
+
 }
+
+func (suite *Day2Suite) TestBathroomSecurityPart2() {
+    input := `ULL
+RRDDD
+LURDL
+UUUUD`
+    suite.SubjectPart2.Puzzle.RawInput = []byte(input)
+    actualValues, errs := suite.SubjectPart2.Solve()
+    if errs != nil {
+        suite.T().Errorf("Unexpected error: %s\n", errs)
+    }
+    assert.Equal(suite.T(), "5DB3", actualValues)
+}
+
+func TestSuite(t *testing.T) {
+    suite.Run(t, new(Day2Suite))
+}
+

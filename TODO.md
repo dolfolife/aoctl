@@ -4,6 +4,7 @@
 - [ ] The session can be fetched from the website? Similar CLI use a webhook to fetch the session.
 - [ ] Support more than GoLang (e.g. TS)
 - [ ] Using OpenFaaS or any other Function as a Service to make the CLI work with
+ -  [ ] Find other options (function buildpacks). Build a AOC buildpack the same way func cli uses for knative functions?
 - [ ] Write a Public website that can be deploy on GitHub Pages.
 
 ## Init
@@ -26,4 +27,10 @@
 - [ ] Get Real input and run the challenge 
 
 
+## ANother sections we might need to add here
+ - Templates for each language
+ - Buildpacks for each language
+ - Webpage
+ - Good Documentation
 
+How much can I push the idea of not running this locally? For example, you want to code in Rust but you want to run it in a container.

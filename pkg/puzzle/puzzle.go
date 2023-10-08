@@ -1,49 +1,83 @@
 package puzzle
 
-import (
-    "fmt"
+import(
+    "gopkg.in/yaml.v3"
+    "log"
+    "os"
 )
 
-type Puzzle[T any] struct {
-    part1 func(T) (string, error)
-    part2 func(T) (string, error)
-    normalizeInput func(string) T
+type PuzzleStatus string
+
+const (
+    Unsolved    PuzzleStatus = "UNSOLVED"
+    Solved      PuzzleStatus = "SOLVED"
+    Unreachable PuzzleStatus = "UNREACHABLE"
+)
+
+type PuzzleMetadata struct {
+    Day  string `yaml:"day,omitempty"` 
+    Title string `yaml:"title,omitempty"`
+    Year string `yaml:"year,omitempty"`
 }
 
-func (p Puzzle[T]) SolvePart(part int,input string) string {
-    var result string
-    var err error
+type PuzzlePart struct {
+    Answer string `yaml:"answer,omitempty"`
+    Description string `yaml:"description,omitempty"`
+    Status PuzzleStatus `yaml:"status,omitempty"`
 
-    if part == 1 {
-        result, err = p.part1(p.normalizeInput(input))
-    } else {
-        result, err = p.part2(p.normalizeInput(input))
+    RawInput []byte
+}
+
+type Puzzle struct {
+    Metadata PuzzleMetadata `yaml:"metadata"`
+    Puzzles []PuzzlePart `yaml:"puzzles"`
+}
+
+func NewPuzzleFromHTML(day string, year string, htmlString string, input []byte) Puzzle {
+    return Puzzle{
+        Metadata: PuzzleMetadata{
+            Day: day,
+            Year: year,
+            Title: getTitleFromBody(htmlString),
+        },
+        Puzzles: []PuzzlePart{},
     }
+}
 
+func NewPuzzleFromCache(filepath string, inputFilepath []string) Puzzle {
+    var puzzle Puzzle
+    yamlFile, err := os.ReadFile(filepath)
     if err != nil {
-        fmt.Printf("there was an error on part %d: %s \n", part, err)
-        fmt.Printf("...skipping part %d...\n", part)
-        return ""
+        log.Printf("Error trying to read the YAML file err =  #%v ", err)
     }
-
-    return result
-}
-
-func (p Puzzle[T]) NormalizeInput(input string) T {
-    return p.normalizeInput(input)
-}
-
-func NewPuzzleSolver[T any](name string, normalizeInput func(string) T, part1 func(T) (string, error), part2 func(T) (string, error)) Puzzle[T] {
-    return Puzzle[T] {
-        part1: part1,
-        part2: part2,
-        normalizeInput: normalizeInput,
+    err = yaml.Unmarshal(yamlFile, &puzzle)
+    if err != nil {
+        log.Fatalf("Unmarshal: %v", err)
     }
+   
+    for i, inputFile := range inputFilepath {
+        rawInput, err := os.ReadFile(inputFile)
+        if err != nil {
+            log.Printf("Error trying to read the input for Puzzle Part %d err   #%v ", i, err)
+        }
+        // we need to delete the last byte of the input because it is a newline or EOF
+        rawInput = rawInput[:len(rawInput)-1]
+        puzzle.Puzzles[i].RawInput = rawInput
+    }
+    return puzzle
 }
 
-type PuzzleSolution[T any] struct {
-    Part1 string
-    Part2 string
+func getTitleFromBody(body string) string {
+    return "Title of the Puzzle Part"
+}
 
+type PuzzleSolver[T any] struct {
+    Puzzle Puzzle
+    NormalizeInput func(string) T
+    Solve func() Response
+}
+
+type Response struct {
+    Value string
     Error error
 }
