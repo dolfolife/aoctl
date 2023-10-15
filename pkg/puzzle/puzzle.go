@@ -4,26 +4,23 @@ import(
     "gopkg.in/yaml.v3"
     "log"
     "os"
+    "errors"
+    "fmt"
+    "strings"
 )
 
 type PuzzleStatus string
 
-const (
-    Unsolved    PuzzleStatus = "UNSOLVED"
-    Solved      PuzzleStatus = "SOLVED"
-    Unreachable PuzzleStatus = "UNREACHABLE"
-)
-
 type PuzzleMetadata struct {
-    Day  string `yaml:"day,omitempty"` 
-    Title string `yaml:"title,omitempty"`
-    Year string `yaml:"year,omitempty"`
+    Day  string `yaml:"day"` 
+    Title string `yaml:"title"`
+    Year string `yaml:"year"`
 }
 
 type PuzzlePart struct {
     Answer string `yaml:"answer,omitempty"`
-    Description string `yaml:"description,omitempty"`
-    Status PuzzleStatus `yaml:"status,omitempty"`
+    Description string `yaml:"description"`
+    Status PuzzleStatus `yaml:"status"`
 
     RawInput []byte
 }
@@ -44,27 +41,58 @@ func NewPuzzleFromHTML(day string, year string, htmlString string, input []byte)
     }
 }
 
-func NewPuzzleFromCache(filepath string, inputFilepath []string) Puzzle {
+// The field status is a collection of status and we need to validate that the
+// status is in the set of valid statuses
+func (p *Puzzle) ParseFields() error {
+    mapStatus := map[string]PuzzleStatus{
+        "UNSOLVED": Unsolved,
+        "SOLVED": Solved,
+        "UNREACHABLE": Unreachable,
+    }
+    for i, puzzle := range p.Puzzles {
+        status := strings.ToUpper(string(puzzle.Status))
+            if _, ok := mapStatus[status]; ok {
+                p.Puzzles[i].Status = mapStatus[status]
+            } else {
+                errorMessage := fmt.Sprintf("cannot parse Puzzle Part %d", i)
+                return NewError(ErrInvalidStatus, errors.New(errorMessage))
+            }
+    }
+    return nil
+}
+
+func NewPuzzleFromCache(filepath string, inputFilepath []string) (Puzzle, error) {
     var puzzle Puzzle
     yamlFile, err := os.ReadFile(filepath)
     if err != nil {
         log.Printf("Error trying to read the YAML file err =  #%v ", err)
+        return Puzzle{}, err
     }
     err = yaml.Unmarshal(yamlFile, &puzzle)
     if err != nil {
         log.Fatalf("Unmarshal: %v", err)
+        return Puzzle{}, err
+    }
+
+    // yaml.Umarshall does not have validation on sets like the status field
+    // We need to map the status of the puzzle
+    err = puzzle.ParseFields()
+    if err != nil {
+        log.Fatalf("Error trying to parse the Puzzle err =  #%v ", err)
+        return Puzzle{}, err
     }
    
     for i, inputFile := range inputFilepath {
         rawInput, err := os.ReadFile(inputFile)
         if err != nil {
-            log.Printf("Error trying to read the input for Puzzle Part %d err   #%v ", i, err)
+            log.Fatalf("Error trying to read the input for Puzzle Part %d err   #%v ", i, err)
+            return Puzzle{}, err
         }
         // we need to delete the last byte of the input because it is a newline or EOF
         rawInput = rawInput[:len(rawInput)-1]
         puzzle.Puzzles[i].RawInput = rawInput
     }
-    return puzzle
+    return puzzle, nil
 }
 
 func getTitleFromBody(body string) string {

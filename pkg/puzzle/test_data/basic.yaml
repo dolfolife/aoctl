@@ -1,0 +1,12 @@
+---
+metadata:
+  day: day_basic
+  year: year_basic
+  title: title_basic
+puzzles:
+  - description: description_1_basic
+    answer: answer_1_basic
+    status: solved
+  - description: description_2_basic
+    answer: answer_2_basic
+    status: unsolved
