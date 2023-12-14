@@ -1,6 +1,6 @@
 module github.com/dolfolife/aoctl/examples/golang/2016
 
-go 1.21.0
+go 1.21
 
 require (
 	github.com/dolfolife/aoctl v0.0.0-20230829133931-d2eb61e5a257
