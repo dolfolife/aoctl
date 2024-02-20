@@ -3,6 +3,8 @@ package day1
 import (
     "fmt"
     "path/filepath"
+    "os"
+
     "github.com/dolfolife/aoctl/pkg/puzzle"
     "github.com/dolfolife/aoctl/pkg/aoc"
 )
@@ -14,8 +16,13 @@ func Solve() {
     file := filepath.Join(aocConfig.ProjectPath, "01/puzzle.yaml")
     inputfile1 := filepath.Join(aocConfig.ProjectPath, "01/input.txt")
     inputfile2 := filepath.Join(aocConfig.ProjectPath, "01/input.txt")
-    p := puzzle.NewPuzzleFromCache(file, []string{ inputfile1, inputfile2 })
+    p, err := puzzle.NewPuzzleFromCache(file, []string{ inputfile1, inputfile2 })
     
+    if err != nil {
+        fmt.Println(err)
+        os.Exit(1)
+    }
+
     part1 := Day1Part1Solver{}
     part1.Puzzle = p.Puzzles[0]
     answer1, err := part1.Solve()
