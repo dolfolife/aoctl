@@ -3,6 +3,7 @@ module github.com/dolfolife/aoctl
 go 1.20
 
 require (
+	github.com/joho/godotenv v1.5.1
 	github.com/spf13/cobra v1.7.0
 	github.com/stretchr/testify v1.8.4
 	go.hein.dev/go-version v0.1.0
