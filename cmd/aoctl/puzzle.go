@@ -35,9 +35,9 @@ var puzzleCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		day := cmd.Flags().Lookup("day").Value.String()
 		year := cmd.Flags().Lookup("year").Value.String()
+
 		puzzles := aoc.GetPuzzles(day, year)
-		fmt.Println(puzzles[0])
-		fmt.Println(puzzles[1])
+		fmt.Println(puzzles)
 	},
 }
 

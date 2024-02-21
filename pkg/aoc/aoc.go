@@ -45,7 +45,7 @@ AOC_SESSION=<insert-advent-of-code-session>
 
 	defer roFile.Close()
 	roFile.WriteString(`
-    # Advent of Code
+# Advent of Code
     `)
 
 	gitIgnoreFile := filepath.Join(path, ".gitignore")
@@ -58,7 +58,7 @@ AOC_SESSION=<insert-advent-of-code-session>
 	if _, err = roFile.WriteString(`
 # Advent of Code use the .aoc file for storing session information which you should
 # not track in source control.
-.aoc
+.env
 `); err != nil {
 		return err
 	}
