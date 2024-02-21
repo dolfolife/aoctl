@@ -87,6 +87,7 @@ func GetPuzzles(day string, year string) []puzzle.Puzzle {
 	rawInput := getBodyFromUrl(inputURL, aocConfig.SessionId)
 
 	response, err := ParsePuzzles(day, year, body, rawInput)
+
 	if err != nil {
 		log.Fatalf("Error parsing puzzles: %s", err)
 	}
