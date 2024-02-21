@@ -15,7 +15,6 @@ What questions should we ask?
 ## Get
 The user will write `aoctl puzzle get/sync` with some informaation
 
-
 Information needed:
 - Year // if year is not provided it will go over 2015-lastDecemberyear
 - Day // if day is not provided it will go over 1-25. If we are between dec 1 and dec 25 and YEAR is current, only do until "TODAY's day"
@@ -30,7 +29,6 @@ The user should expect a file structure for each year/day
 - inputs folder. The user will use this folder for testing or submit purposes. [TODO: not full flesh out yet]
 - Test files for each part with the description of the part as comments in the file.
 - Readme file that explains how to use each file of this puzzle solver
-
 
 puzzle.yaml
 - language this overwrites the root language runtime
@@ -47,10 +45,11 @@ Example of a aocproject files:
 
 /<custom-name-for-project>
      README.md
-    .gitignore // the session cookie file should be here
+    .env// the session cookie file should be here
+    .gitignore // 
     .git/ // initialized git with provided remote or empty
-    .aoc.yaml // configuration like language, and other preferences
-    /src
+    .aocconfig.yaml // configuration like language, and other preferences
+    /events
         /<year>
             /<day>
                 README.md

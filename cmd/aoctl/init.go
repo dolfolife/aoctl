@@ -1,5 +1,5 @@
 /*
-Copyright © 2023 Rodolfo Sanchez <rodolfo2488@gmail.com>
+Copyright © 2024 Rodolfo Sanchez <rodolfo2488@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -22,29 +22,28 @@ THE SOFTWARE.
 package aoctl
 
 import (
-
-    "github.com/spf13/cobra"
-    "github.com/dolfolife/aoctl/pkg/aoc"
+	"github.com/dolfolife/aoctl/pkg/aoc"
+	"github.com/spf13/cobra"
 )
 
 var initCmd = &cobra.Command{
-    Use: "init",
-    Aliases: []string{"initialize"},
-    Short: "Initialize the Advent of Code project in the path specifed",
-    Args: cobra.ExactArgs(0),
-    Run: func(cmd *cobra.Command, args []string) {
-        path := cmd.Flags().Lookup("path").Value.String()
+	Use:     "init",
+	Aliases: []string{"initialize"},
+	Short:   "Initialize the Advent of Code project in the path specifed",
+	Args:    cobra.ExactArgs(0),
+	Run: func(cmd *cobra.Command, args []string) {
+		path := cmd.Flags().Lookup("path").Value.String()
 
-        if path == "" {
-            path= "adventofcode"
-        }
+		if path == "" {
+			path = "adventofcode"
+		}
 
-        aoc.InitializeProject(path)
-    },
+		aoc.InitializeProject(path)
+	},
 }
 
 func init() {
-    rootCmd.AddCommand(initCmd)
+	rootCmd.AddCommand(initCmd)
 
-    initCmd.Flags().StringP("path", "p", "", "Path to initialize the project")
+	initCmd.Flags().StringP("path", "p", "", "Path to initialize the project")
 }

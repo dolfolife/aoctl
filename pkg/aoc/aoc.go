@@ -17,53 +17,41 @@ func InitializeProject(path string) error {
 	err := os.Mkdir(fullPath, os.ModePerm)
 
 	if err != nil {
-		log.Fatalf("Error creating directory: %s", err)
-	}
-
-	cookieFile := filepath.Join(path, ".env")
-	roFile, err := os.OpenFile(cookieFile, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0644)
-	if err != nil {
-		log.Fatalf("Error creating cookie file: %s", err)
-	}
-
-	defer roFile.Close()
-
-	_, err = roFile.WriteString(`
-# Use the .aoc file to set the environment variables for your project
-AOC_SESSION=<insert-advent-of-code-session>
-`)
-
-	if err != nil {
-		log.Fatalf("Error writing to the aoc file: %s", err)
-	}
-
-	readmeFile := filepath.Join(path, "README.md")
-	roFile, err = os.OpenFile(readmeFile, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0644)
-	if err != nil {
-		log.Fatalf("Error creating README.md file: %s", err)
-	}
-
-	defer roFile.Close()
-	roFile.WriteString(`
-# Advent of Code
-    `)
-
-	gitIgnoreFile := filepath.Join(path, ".gitignore")
-	roFile, err = os.OpenFile(gitIgnoreFile, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0644)
-	if err != nil {
-		log.Fatalf("Error creating .gitignore file: %s", err)
-	}
-	defer roFile.Close()
-
-	if _, err = roFile.WriteString(`
-# Advent of Code use the .aoc file for storing session information which you should
-# not track in source control.
-.env
-`); err != nil {
+		log.Fatalf("Error creating directory at %s: %s", fullPath, err)
 		return err
 	}
 
-	log.Println("Project initialized")
+	if err := createFileFromTemplates(filepath.Join(path, ".env"), GetRootFile("env")); err != nil {
+		log.Fatalf("Error writing the env file: %s", err)
+		return err
+	}
+
+	if err = createFileFromTemplates(filepath.Join(path, "README.md"), GetRootFile("README.md")); err != nil {
+		log.Fatalf("Error creating README.md file: %s", err)
+		return err
+	}
+
+	if err = createFileFromTemplates(filepath.Join(path, ".gitignore"), GetRootFile("gitignore")); err != nil {
+		log.Fatalf("Error creating gitignore file: %s", err)
+		return err
+	}
+
+	log.Println("Project initialized!")
+	return nil
+}
+
+func createFileFromTemplates(file string, content string) error {
+	roFile, err := os.OpenFile(file, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0644)
+	if err != nil {
+		return err
+	}
+
+	defer roFile.Close()
+
+	if _, err = roFile.WriteString(content); err != nil {
+		return err
+	}
+
 	return nil
 }
 

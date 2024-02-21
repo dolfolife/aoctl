@@ -3,22 +3,23 @@
 [![Go Reference](https://pkg.go.dev/badge/github.com/dolfolife/aoctl#section-readme.svg)](https://pkg.go.dev/github.com/dolfolife/aoctl#section-readme)
 [![codecov](https://codecov.io/github/dolfolife/aoctl/graph/badge.svg?token=GTFZX1J2WX)](https://codecov.io/github/dolfolife/aoctl)
 
-This is a personal project I have to learn more about writing CLI tools in GoLang. The idea behind this project is to help me solve the [Advent of Code](adventofcode.com/) since I have noticed some patterns while solving them.
+This is a personal project for myself to learn more about writing CLI tools in GoLang. The idea behind this project is to help me solve the [Advent of Code](adventofcode.com/) since I have noticed some patterns while solving them.
 
-> Disclaimer: This is yet another CLI that solves a common problem and there are probably N solutions out there. My motivation is not only to provide a CLI but to learn how to write, develop, release, and test them.
+> Disclaimer: This is yet another CLI that solves a common problem and there are probably `n` solutions out there. My motivation is not only to provide a CLI but to learn how to write, develop, release, and test them.
 
-I hope you enjoy it and feel free to help me understand the best practices of writing CLI tools or GoLang packages by writing an issue or using the [CONTRIBUTING.md](./CONTRIBUTING.md) to write a PR.
+I hope you enjoy it and feel free to help me understand the best practices of writing CLI tools or GoLang packages by writing an issue or using the [CONTRIBUTING.md](./CONTRIBUTING.md) to contribute. PRs are welcome.
 
 ## Advent Of Code Series
 
 Advent of Code is a website made by Eric Wastl. I recommend watching [Advent of Code: Behind the Scenes](https://www.youtube.com/watch?v=CFWuwNDOnIo&ab_channel=CodingTech).
 
-## Quick Note
+## The Why
 
-The inspiration to build a tool around solving comes from laziness of not going to a browser to find puzzles and submit my answers.
+Advent of Code application only cares about your solution, but there is no way to link your code and the problem at hand. The main idea of this tool is to give you a link between the application of [adventofcode.com](https://adventofcode.com/) and your working space. 
 
-I found [Advent Of Code Go](https://github.com/alexchao26/advent-of-code-go) and it inspired me to build my own tool and learn more GoLang. 
+## Alternatives
 
+I found [Advent Of Code Go](https://github.com/alexchao26/advent-of-code-go) and it inspired me to build my own tool and learn more GoLang.
 
 # AoC CLI Documentation
 
