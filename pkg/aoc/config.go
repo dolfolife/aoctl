@@ -13,8 +13,17 @@ type AoCConfig struct {
 	SessionId   string
 }
 
-func GetAoCConfig() AoCConfig {
+type Templates map[string]string
 
+func ProjectTemplates() Templates {
+	return Templates{
+		".env":       GetRootFile("env"),
+		"README.md":  GetRootFile("README.md"),
+		".gitignore": GetRootFile("gitignore"),
+	}
+}
+
+func GetAoCConfig() AoCConfig {
 	err := godotenv.Load()
 
 	if err != nil {

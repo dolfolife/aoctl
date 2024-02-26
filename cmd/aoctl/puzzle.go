@@ -27,11 +27,10 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var puzzleCmd = &cobra.Command{
-	Use:     "puzzle",
-	Aliases: []string{"p", "pzzl", "pz"},
-	Short:   "Get the puzzles for a given day",
-	Args:    cobra.ExactArgs(0),
+var puzzlesCmd = &cobra.Command{
+	Use:     "puzzles",
+	Aliases: []string{"puzzle", "p", "pzzl", "pz"},
+	Short:   "Interact with puzzles from adventofcode.com",
 	Run: func(cmd *cobra.Command, args []string) {
 		day := cmd.Flags().Lookup("day").Value.String()
 		year := cmd.Flags().Lookup("year").Value.String()
@@ -42,10 +41,10 @@ var puzzleCmd = &cobra.Command{
 }
 
 func init() {
-	rootCmd.AddCommand(puzzleCmd)
+	rootCmd.AddCommand(puzzlesCmd)
 
-	puzzleCmd.Flags().StringP("day", "d", "1", "Day of the Advent of Code problems to fetch; By default it will be day 1")
-	puzzleCmd.Flags().StringP("year", "y", getCurrentYear(), "Year of the Advent of Code; by default uses the last Advent of Code Year")
+	puzzlesCmd.Flags().StringP("day", "d", "1", "Day of the Advent of Code problems to fetch; By default it will be day 1")
+	puzzlesCmd.Flags().StringP("year", "y", getCurrentYear(), "Year of the Advent of Code; by default uses the last Advent of Code Year")
 }
 
 func getCurrentYear() string {

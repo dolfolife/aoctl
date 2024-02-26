@@ -59,7 +59,7 @@ aoc version
 Get The puzzle information with the option to save it locally in the repository.
 
 ```bash
-aoc puzzle [OPTIONS]
+aoc puzzles [OPTIONS]
 ```
 
 #### Options

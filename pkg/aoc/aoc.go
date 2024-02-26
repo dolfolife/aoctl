@@ -2,9 +2,12 @@ package aoc
 
 import (
 	"log"
+	"math"
 	"net/url"
 	"os"
 	"path/filepath"
+	"strconv"
+	"time"
 
 	"github.com/dolfolife/aoctl/pkg/puzzle"
 )
@@ -21,23 +24,72 @@ func InitializeProject(path string) error {
 		return err
 	}
 
-	if err := createFileFromTemplates(filepath.Join(path, ".env"), GetRootFile("env")); err != nil {
-		log.Fatalf("Error writing the env file: %s", err)
-		return err
-	}
+	rootFiles := ProjectTemplates()
 
-	if err = createFileFromTemplates(filepath.Join(path, "README.md"), GetRootFile("README.md")); err != nil {
-		log.Fatalf("Error creating README.md file: %s", err)
-		return err
-	}
-
-	if err = createFileFromTemplates(filepath.Join(path, ".gitignore"), GetRootFile("gitignore")); err != nil {
-		log.Fatalf("Error creating gitignore file: %s", err)
-		return err
+	for filename, content := range rootFiles {
+		if err := createFileFromTemplates(filepath.Join(path, filename), content); err != nil {
+			log.Fatalf("Error writing the %s file: %s\n", filename, err)
+			return err
+		}
 	}
 
 	log.Println("Project initialized!")
 	return nil
+}
+
+func SyncAoC(force bool) {
+	firstYearOfAoC := 2015
+	currentYear, CurrentMonth, currentDay := time.Now().Date()
+
+	// if we are not in december it means that we do not have AoC for the current year
+	if CurrentMonth < 12 {
+		currentYear--
+	}
+	config := GetAoCConfig()
+	eventsPath := filepath.Join(config.ProjectPath, "events")
+
+	err := os.Mkdir(eventsPath, os.ModePerm)
+
+	if err != nil && !os.IsExist(err) {
+		log.Fatal("events directory cannot be created")
+	}
+
+	for i := firstYearOfAoC; i <= currentYear; i++ {
+		yearDirPath := filepath.Join(eventsPath, strconv.Itoa(i))
+
+		err := os.Mkdir(yearDirPath, os.ModePerm)
+
+		if err != nil && !os.IsExist(err) {
+			log.Fatalf("events directory for year %d cannot be created\n", i)
+		}
+
+		// if we are in December we take the min day between Today and 25
+		lastDay := 25
+		if CurrentMonth == 12 {
+			lastDay = int(math.Min(float64(lastDay), float64(currentDay)))
+		}
+
+		for j := 1; j <= lastDay; j++ {
+			dayDirPath := filepath.Join(yearDirPath, strconv.Itoa(j))
+			err := os.Mkdir(dayDirPath, os.ModePerm)
+
+			if err != nil && !os.IsExist(err) {
+				log.Fatalf("events directory for year %d cannot be created\n", i)
+			}
+
+			if os.IsExist(err) && !force {
+				continue
+			}
+			// TODO:
+			// create all files
+			// - Create puzzleDay.yaml
+			// - Create main.go
+			// - Create solution.go (with two parts)
+			// - create input directory
+			// - create solution_test.go
+			// - Create README.md (use for cache the text in the adventofcode.com
+		}
+	}
 }
 
 func createFileFromTemplates(file string, content string) error {
