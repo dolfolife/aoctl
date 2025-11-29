@@ -15,7 +15,10 @@ func Solve() {
 	file := filepath.Join(aocConfig.ProjectPath, "01/puzzle.yaml")
 	inputfile1 := filepath.Join(aocConfig.ProjectPath, "01/input.txt")
 	inputfile2 := filepath.Join(aocConfig.ProjectPath, "01/input.txt")
-	p := puzzle.NewPuzzleFromCache(file, []string{inputfile1, inputfile2})
+	p, err := puzzle.NewPuzzleFromCache(file, []string{inputfile1, inputfile2})
+	if err != nil {
+		panic(err)
+	}
 
 	part1 := Day1Part1Solver{}
 	part1.Puzzle = p.Puzzles[0]
