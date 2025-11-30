@@ -1,26 +1,57 @@
-package day1
+package main
 
 import (
 	"errors"
 	"fmt"
+	"math"
 	"sort"
 	"strconv"
 	"strings"
-
-	"github.com/dolfolife/aoctl/pkg/puzzle"
 )
 
-type Day1Part2Solver struct {
-	Puzzle puzzle.PuzzlePart
-}
-
-func part2(input []string) (string, error) {
+func Part1(input string) (string, error) {
+	lines := strings.Split(input, "\n")
 	metricsOne := []int{}
 	metricsTwo := []int{}
-	for _, line := range input {
+	for _, line := range lines {
+		if line == "" {
+			continue
+		}
 		digitsInLine := strings.Split(line, " ")
 		if len(digitsInLine) != 4 {
-			fmt.Println(len(digitsInLine))
+			return "", errors.New("not enough digits in line")
+		}
+		firstDigit, err := strconv.Atoi(digitsInLine[0])
+		if err != nil {
+			return "", err
+		}
+		metricsOne = append(metricsOne, firstDigit)
+		secondDigit, err := strconv.Atoi(digitsInLine[3])
+		if err != nil {
+			return "", err
+		}
+		metricsTwo = append(metricsTwo, secondDigit)
+	}
+	sort.Ints(metricsOne)
+	sort.Ints(metricsTwo)
+	result := 0
+	for index, value := range metricsOne {
+		localDiff := int(math.Abs(float64(value - metricsTwo[index])))
+		result += localDiff
+	}
+	return fmt.Sprint(result), nil
+}
+
+func Part2(input string) (string, error) {
+	lines := strings.Split(input, "\n")
+	metricsOne := []int{}
+	metricsTwo := []int{}
+	for _, line := range lines {
+		if line == "" {
+			continue
+		}
+		digitsInLine := strings.Split(line, " ")
+		if len(digitsInLine) != 4 {
 			return "", errors.New("not enough digits in line")
 		}
 		firstDigit, err := strconv.Atoi(digitsInLine[0])
@@ -64,12 +95,4 @@ func part2(input []string) (string, error) {
 		prevScore = score
 	}
 	return fmt.Sprint(result), nil
-}
-
-func (s *Day1Part2Solver) NormalizeInput(input string) []string {
-	return strings.Split(input, "\n")
-}
-
-func (s *Day1Part2Solver) Solve() (string, error) {
-	return part2(s.NormalizeInput(string(s.Puzzle.RawInput)))
 }

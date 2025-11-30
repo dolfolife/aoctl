@@ -1,40 +1,27 @@
-package day1
+package main
 
 import (
 	"fmt"
+	"log"
 
-	"path/filepath"
-
-	"github.com/dolfolife/aoctl/pkg/aoc"
 	"github.com/dolfolife/aoctl/pkg/puzzle"
 )
 
-func Solve() {
-	aocConfig := aoc.GetAoCConfig()
-
-	file := filepath.Join(aocConfig.ProjectPath, "01/puzzle.yaml")
-	inputfile1 := filepath.Join(aocConfig.ProjectPath, "01/input.txt")
-	inputfile2 := filepath.Join(aocConfig.ProjectPath, "01/input.txt")
-	p, err := puzzle.NewPuzzleFromCache(file, []string{inputfile1, inputfile2})
+func main() {
+	input, err := puzzle.ReadInput("input/input.txt")
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
-	part1 := Day1Part1Solver{}
-	part1.Puzzle = p.Puzzles[0]
-	anwser1, err := part1.Solve()
+	p1, err := Part1(input)
 	if err != nil {
-		fmt.Println(err)
+		log.Fatal(err)
 	}
+	fmt.Printf("Part 1: %s\n", p1)
 
-	fmt.Println(anwser1)
-
-	part2 := Day1Part2Solver{}
-	part2.Puzzle = p.Puzzles[1]
-	anwser2, err := part2.Solve()
+	p2, err := Part2(input)
 	if err != nil {
-		fmt.Println(err)
+		log.Fatal(err)
 	}
-
-	fmt.Println(anwser2)
+	fmt.Printf("Part 2: %s\n", p2)
 }

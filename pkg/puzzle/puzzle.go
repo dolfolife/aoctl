@@ -120,13 +120,10 @@ func getPuzzlePartsFromHTMLString(body string) []PuzzlePart {
 	return puzzleParts
 }
 
-type PuzzleSolver[T any] struct {
-	Puzzle         Puzzle
-	NormalizeInput func(string) T
-	Solve          func() Response
-}
-
-type Response struct {
-	Value string
-	Error error
+func ReadInput(path string) (string, error) {
+	content, err := os.ReadFile(path)
+	if err != nil {
+		return "", err
+	}
+	return strings.TrimSpace(string(content)), nil
 }

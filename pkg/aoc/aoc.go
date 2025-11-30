@@ -80,14 +80,46 @@ func SyncAoC(force bool) {
 			if os.IsExist(err) && !force {
 				continue
 			}
-			// TODO:
-			// create all files
-			// - Create puzzleDay.yaml
-			// - Create main.go
-			// - Create solution.go (with two parts)
-			// - create input directory
-			// - create solution_test.go
-			// - Create README.md (use for cache the text in the adventofcode.com
+
+			puzzles := GetPuzzles(strconv.Itoa(j), strconv.Itoa(i))
+			if len(puzzles) == 0 {
+				continue
+			}
+
+			// Create input directory and file
+			inputDir := filepath.Join(dayDirPath, "input")
+			if err := os.MkdirAll(inputDir, os.ModePerm); err != nil {
+				log.Printf("Error creating input directory: %v", err)
+			}
+
+			// We assume all parts have the same input, so take the first one
+			if len(puzzles[0].Puzzles) > 0 {
+				if err := os.WriteFile(filepath.Join(inputDir, "input.txt"), puzzles[0].Puzzles[0].RawInput, 0644); err != nil {
+					log.Printf("Error writing input file: %v", err)
+				}
+			}
+
+			// Create README.md
+			readmeContent := ""
+			for _, p := range puzzles {
+				for _, part := range p.Puzzles {
+					readmeContent += part.Description + "\n\n"
+				}
+			}
+			if err := createFileFromTemplates(filepath.Join(dayDirPath, "README.md"), readmeContent); err != nil {
+				log.Printf("Error creating README.md: %v", err)
+			}
+
+			// Create Go files
+			if err := createFileFromTemplates(filepath.Join(dayDirPath, "main.go"), GetSolutionFile("main.go.tmpl")); err != nil {
+				log.Printf("Error creating main.go: %v", err)
+			}
+			if err := createFileFromTemplates(filepath.Join(dayDirPath, "solution.go"), GetSolutionFile("solution.go.tmpl")); err != nil {
+				log.Printf("Error creating solution.go: %v", err)
+			}
+			if err := createFileFromTemplates(filepath.Join(dayDirPath, "solution_test.go"), GetSolutionFile("solution_test.go.tmpl")); err != nil {
+				log.Printf("Error creating solution_test.go: %v", err)
+			}
 		}
 	}
 }

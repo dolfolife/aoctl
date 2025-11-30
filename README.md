@@ -3,111 +3,106 @@
 [![Go Reference](https://pkg.go.dev/badge/github.com/dolfolife/aoctl#section-readme.svg)](https://pkg.go.dev/github.com/dolfolife/aoctl#section-readme)
 [![codecov](https://codecov.io/github/dolfolife/aoctl/graph/badge.svg?token=GTFZX1J2WX)](https://codecov.io/github/dolfolife/aoctl)
 
-This is a personal project for myself to learn more about writing CLI tools in GoLang. The idea behind this project is to help me solve the [Advent of Code](adventofcode.com/) since I have noticed some patterns while solving them.
+A simple CLI tool to organize and solve [Advent of Code](https://adventofcode.com/) problems. It handles downloading inputs, generating boilerplate code, and running your solutions, so you can focus on the logic.
 
-> Disclaimer: This is yet another CLI that solves a common problem and there are probably `n` solutions out there. My motivation is not only to provide a CLI but to learn how to write, develop, release, and test them.
+## Features
 
-I hope you enjoy it and feel free to help me understand the best practices of writing CLI tools or GoLang packages by writing an issue or using the [CONTRIBUTING.md](./CONTRIBUTING.md) to contribute. PRs are welcome.
+- **Project Initialization**: Sets up a clean workspace for your AoC solutions.
+- **Synchronization**: Downloads puzzle descriptions (README.md) and inputs for all available days.
+- **Code Generation**: Generates simple Go boilerplate for each day.
+- **Zero Friction**: No complex interfaces to implement. Just write `Part1` and `Part2` functions.
 
-## Advent Of Code Series
-
-Advent of Code is a website made by Eric Wastl. I recommend watching [Advent of Code: Behind the Scenes](https://www.youtube.com/watch?v=CFWuwNDOnIo&ab_channel=CodingTech).
-
-## The Why
-
-Advent of Code application only cares about your solution, but there is no way to link your code and the problem at hand. The main idea of this tool is to give you a link between the application of [adventofcode.com](https://adventofcode.com/) and your working space. 
-
-## Alternatives
-
-I found [Advent Of Code Go](https://github.com/alexchao26/advent-of-code-go) and it inspired me to build my own tool and learn more GoLang.
-
-# AoC CLI Documentation
-
-## Pre-requisite
-
-You need your session ID from the Advent of Code website. I opened an issue for this: [Session ID is a manual process issue](https://github.com/dolfolife/aoctl/issues/1).
-
-## Puzzles
-
-The Advent of Code puzzles have two parts. Each part has a single string input and a single output.
-
-By that, we have to create an interface that allows us to run each solution against the input and submit the solution to the server of Advent of Code.
-
-## Commands
-
-### Init
-Initialize the aoc project in your local machine.
+## Installation
 
 ```bash
-aoc init <path> 
+go install github.com/dolfolife/aoctl@latest
 ```
 
-### Version
-Print current version of the cli
+## Usage
 
-```bash
-aoc version
-```
+### 1. Initialize Project
 
-#### Options
-
-```
---path -p  Path to initialize the project
-```
-
-### Puzzle
-Get The puzzle information with the option to save it locally in the repository.
+Start by creating a new directory for your Advent of Code solutions and initializing it:
 
 ```bash
-aoc puzzles [OPTIONS]
+mkdir my-aoc-solutions
+cd my-aoc-solutions
+aoctl init .
 ```
 
-#### Options
+### 2. Configure Session
 
-```
--s --session (required) Advent of Code Session. You can get this in the Cookies of the website. 
-```
-
-```
--d --day (required) Day of the puzzle you want to get.
-```
-
-```
--y --year (required) Year of the puzzle you want to get.
-```
-
-```
---sync (optional) To save the puzzle locally at `<year>/<day>/puzzle.md
-```
-
-### test
-Locally test your answers. This relies that each `<year>/<day>` solution has its own tests.
-
-> not yet implemented
+To download inputs, you need to provide your Advent of Code session cookie. You can find this in your browser's developer tools (Application -> Cookies) when logged into adventofcode.com.
 
 ```bash
-aoc test [OPTIONS]
+aoctl session --session <your-session-cookie>
 ```
 
-### submit
-Submit your answer to the Advent of Code.
+### 3. Synchronize Puzzles
 
-> not yet implemented
+Download the puzzles and generate the boilerplate code for the current year (or previous years).
 
 ```bash
-aoc submit [OPTIONS]
+aoctl synchronize
 ```
 
-#### Options
+This will create a directory structure like this:
 
 ```
--s --session (required) Advent of Code Session. You can get this in the Cookies of the website. 
+events/
+  2024/
+    01/
+      README.md          # The puzzle description
+      input/
+        input.txt        # The puzzle input
+      main.go            # Entry point to run your solution
+      solution.go        # Where you write your code
+      solution_test.go   # Tests for your solution
 ```
 
-```
--d --day (required) Day of the puzzle you want to get.
+### 4. Solve the Puzzle
+
+Open `events/2024/01/solution.go` and implement `Part1` and `Part2`.
+
+```go
+package main
+
+func Part1(input string) (string, error) {
+    // Your logic here
+    return "answer", nil
+}
+
+func Part2(input string) (string, error) {
+    // Your logic here
+    return "answer", nil
+}
 ```
 
+### 5. Run and Test
+
+Run your solution:
+
+```bash
+cd events/2024/01
+go run .
 ```
--y --year (required) Year of the puzzle you want to get.
+
+Run tests:
+
+```bash
+go test .
 ```
+
+## Helper Functions
+
+The `pkg/puzzle` package provides a simple helper to read the input file:
+
+```go
+import "github.com/dolfolife/aoctl/pkg/puzzle"
+
+input, err := puzzle.ReadInput("input/input.txt")
+```
+
+## Contributing
+
+PRs are welcome! Please check [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
