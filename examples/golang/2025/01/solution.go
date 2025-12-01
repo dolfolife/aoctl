@@ -41,20 +41,16 @@ func Part1(input string) (string, error) {
 		}
 
 		if move.Direction == 'L' {
-			arrow -= move.Steps % 100
+			arrow = (arrow - move.Steps) % 100
+			if arrow < 0 {
+				arrow += 100
+			}
 		} else {
-			arrow += move.Steps % 100
+			arrow = (arrow + move.Steps) % 100
 		}
 
-		if arrow < 0 {
-			arrow = 100 + arrow
-		}
-		if arrow > 100 {
-			arrow = arrow - 100
-		}
-		if arrow == 0 || arrow == 100 {
+		if arrow == 0 {
 			timesZero++
-			arrow = 0
 		}
 	}
 	return fmt.Sprint(timesZero), nil
