@@ -21,21 +21,7 @@ func Part1(input string) (string, error) {
 			mathNumber, _ := strconv.Atoi(lines[j][i])
 			mathNumbers = append(mathNumbers, mathNumber)
 		}
-		mathOperation := lines[len(lines)-1][i]
-		switch mathOperation {
-		case "+":
-			localResult := 0
-			for _, mathNumber := range mathNumbers {
-				localResult += mathNumber
-			}
-			result += localResult
-		case "*":
-			localResult := 1
-			for _, mathNumber := range mathNumbers {
-				localResult *= mathNumber
-			}
-			result += localResult
-		}
+		result += calculateResult(mathNumbers, lines[len(lines)-1][i])
 	}
 	return strconv.Itoa(result), nil
 }
